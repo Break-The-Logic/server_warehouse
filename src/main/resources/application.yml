@@ -1,3 +1,31 @@
 spring:
+  config:
+    import: optional:file:.env[.properties],optional:file:.env.local[.properties],optional:file:server_warehouse/.env[.properties],optional:file:server_warehouse/.env.local[.properties]
   application:
-    name: warehouse-backend
+    name: server_warehouse
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+supabase:
+  project-url: ${SUPABASE_PROJECT_URL:${SUPABASE_DATABASE_URL:}}
+  anon-key: ${SUPABASE_ANON_KEY:}
+  service-role-key: ${SUPABASE_SERVICE_ROLE_KEY:}
+
+server:
+  port: ${PORT:8080}
+
+springdoc:
+  enable-default-api-docs: false
+  override-with-generic-response: false
+  swagger-ui:
+    path: /swagger-ui.html
